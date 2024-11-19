@@ -1,0 +1,42 @@
+const express = require("express");
+const router = express.Router();
+const posts = require("../posts.js");
+
+// index
+router.get("/", (req, res) => {
+    console.log('Lista dei post');
+    res.json(posts)
+});
+
+// show
+router.get("/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const post = posts.find((p) => p.id === id);
+  console.log(`Dettagli ${id}`);
+  res.json(post)
+});
+
+// store
+router.post("/", (req, res) => {
+    res.send('Creazione');
+});
+
+// update
+router.put("/:id", (req, res) => {
+  const id = req.params.id;
+  res.send(`Modifica integrale ${id}`);
+});
+
+// modify
+router.patch("/:id", (req, res) => {
+  const id = req.params.id;
+  res.send(`Modifica parziale ${id}`);
+});
+
+// destroy
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  res.send(`Cancellazione del post ${id}`);
+});
+
+module.exports = router;
